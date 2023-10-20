@@ -6,6 +6,8 @@
 ## About the app
 "Bora Caminhar!" is a simple and effective walking app that allows users to track their progress during physical activities, giving valuable information about their walk. With intuitive resources and a friendly interface, the app is designed to make the walk a more immersive and informative experience.
 
+App design in progress, https://www.figma.com/file/7x6ml5cnL1MO9zWt763Qny/Untitled?type=design&node-id=5%3A30&mode=design&t=thEdyTmjApmcTZ7o-1
+
 
 ## 🔨 Functionalities
 - `Real-time tracking`: 
