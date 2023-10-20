@@ -25,7 +25,7 @@
   
 ## How to run the project
 1. Install Flutter https://docs.flutter.dev/get-started/install;
-2. Clone this repo: `git clone https://github.com/hisnaider/BoraCaminhar.git`;
+2. Clone this repo: `git clone https://github.com/hisnaider/Bora-Caminhar.git`;
 4. Go to project's root and run: `flutter pub get`;
 5. Launch the app with the command `flutter run` or press F5 in Visual Studio Code.
 
