@@ -23,7 +23,41 @@ App design in progress, https://www.figma.com/file/7x6ml5cnL1MO9zWt763Qny/Untitl
 
 ## Roadmap
 - [ ] App design
-- [ ] App Development...
+- [ ] Map
+  - [ ] Map widget
+  - [ ] Flag of past walks
+  - [ ] Information  in real-time
+    - [ ] User's position
+    - [ ] Walked route
+    - [ ] Medals earned while walking
+    - [ ] Steps, burned calories, and walking distance and time
+- [ ] Tabs
+  - [ ] Options button
+  - [ ] Health option
+    - [ ] Health widget
+    - [ ] Change weight modal
+    - [ ] Change person's information modal
+  - [ ] Meditation option
+    - [ ] Meditation widget
+    - [ ] How meditation works modal
+    - [ ] Select audio modal
+    - [ ] Meditation screen
+  - [ ] Achievement option
+    - [ ] Achievement widget
+    - [ ] How medals works modal
+    - [ ] How achievements works modal
+    - [ ] Medals list widget
+  - [ ] Walk history option
+    - [ ] Walk history widget
+    - [ ] Show walk history on map
+- [ ] Local database
+  - [ ] Models
+  - [ ] Functions
+- [ ] Calculation functions
+ - [ ] Burned calories
+ - [ ] Number of steps
+ - [ ] Walk distance calculation
+ - [ ] BMI calculation
   
 ## How to run the project
 1. Install Flutter https://docs.flutter.dev/get-started/install;
