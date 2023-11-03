@@ -16,7 +16,8 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
           children: [Positioned(bottom: 0, right: 0, left: 0, child: _Tabs())]),
     );
@@ -68,7 +69,7 @@ class __TabsState extends State<_Tabs> {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              color: Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.background,
             ),
             child: tabOption(),
           ),
@@ -102,7 +103,14 @@ class _TabsButtonWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Theme.of(context).colorScheme.surface,
+        color: Theme.of(context).colorScheme.background,
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              offset: const Offset(0, 4),
+              blurRadius: 4,
+              spreadRadius: 0),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
