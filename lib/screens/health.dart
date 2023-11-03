@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -133,7 +134,7 @@ class _PersonInformation extends StatelessWidget {
   /// This widget represents person's information, informations such as gender
   /// age and height
   ///
-  /// It contains a title, 3 text with the informations and a button to open
+  /// It contains a title, 3 text with the informations and a [PrimaryButton] to open
   /// the modal to edit the informations
   ///
   /// It has 3 parameters:
@@ -175,29 +176,12 @@ class _PersonInformation extends StatelessWidget {
             "$height metros",
             style: Theme.of(context).textTheme.bodySmall,
           ),
-          RawMaterialButton(
-            onPressed: () {},
-            fillColor: Theme.of(context).colorScheme.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            visualDensity: VisualDensity.compact,
-            child: Row(
-              children: [
-                Icon(
-                  Icons.boy_rounded,
-                  color: Theme.of(context).colorScheme.background,
-                ),
-                Text(
-                  "Mudar info.",
-                  style: TextStyle(
-                      fontFamily: "Roboto",
-                      color: Theme.of(context).colorScheme.background,
-                      fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-          )
+          PrimaryButton(
+              title: "Mudar info.",
+              icon: Icons.boy_rounded,
+              centralizeTitle: false,
+              padding: EdgeInsets.zero,
+              onPressed: () {})
         ],
       ),
     );
