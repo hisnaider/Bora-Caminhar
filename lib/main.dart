@@ -30,6 +30,7 @@ class MainApp extends StatelessWidget {
           ),
           titleSmall: TextStyle(
             fontFamily: "Roboto",
+            fontSize: 16,
           ),
           labelLarge: TextStyle(
             fontFamily: "Roboto",

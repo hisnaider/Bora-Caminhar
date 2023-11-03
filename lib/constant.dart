@@ -28,7 +28,7 @@ const Map<String, dynamic> healthDetail = {
     "color": stepColor,
   },
   "time": {
-    "title": "Tempo caminhando",
+    "title": "Tempo",
     "unit": "minutos",
     "svg": "svg/icons/time.svg",
     "color": timeColor,

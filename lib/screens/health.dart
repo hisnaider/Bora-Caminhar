@@ -18,23 +18,38 @@ class HealthWidget extends StatelessWidget {
             "Saúde",
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12),
-            child: Wrap(
-              runSpacing: 10,
-              runAlignment: WrapAlignment.spaceBetween,
-              clipBehavior: Clip.hardEdge,
-              children: [
-                _HealthDetail(
-                    info: healthDetail["calorie"], total: 1000, average: 195),
-                _HealthDetail(
-                    info: healthDetail["distance"], total: 1000, average: 3.1),
-                _HealthDetail(
-                    info: healthDetail["step"], total: 10000, average: 4000),
-                _HealthDetail(
-                    info: healthDetail["time"], total: 1440, average: 45)
-              ],
-            ),
+          SizedBox(
+            height: 12,
+          ),
+          Wrap(
+            runSpacing: 10,
+            runAlignment: WrapAlignment.spaceBetween,
+            clipBehavior: Clip.hardEdge,
+            children: [
+              _HealthDetail(
+                  info: healthDetail["calorie"], total: 1000, average: 195),
+              _HealthDetail(
+                  info: healthDetail["distance"], total: 1000, average: 3.1),
+              _HealthDetail(
+                  info: healthDetail["step"], total: 10000, average: 4000),
+              _HealthDetail(
+                  info: healthDetail["time"], total: 1440, average: 45)
+            ],
+          ),
+          SizedBox(
+            height: 24,
+          ),
+          Text(
+            "Mais informações",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Row(
+            children: [
+              _PersonInformation(gender: "Masculino", age: 25, height: 1.7)
+            ],
           )
         ],
       ),
@@ -47,7 +62,7 @@ class _HealthDetail extends StatelessWidget {
   /// number os steps or time
   ///
   /// It contains a svg icon, a title, the total and the average number of that
-  /// especif detail
+  /// specific detail
   ///
   /// It has 3 parameters:
   /// - [info]: Map that contains informations about the detail
@@ -55,6 +70,11 @@ class _HealthDetail extends StatelessWidget {
   ///   - `unit`: Unit of the detail, ex: km, kcal, minutes, etc
   ///   - `svg`: Svg icon location
   ///   - `color`: Color of the svg icon
+  /// - [total]: Total number of the specific detail, ex: how many calories user
+  /// has burn since the first walk
+  /// - [average]: Average number of the specific detail, ex: how many calories
+  /// user burns per walk
+  ///
   const _HealthDetail({
     super.key,
     required this.info,
@@ -80,26 +100,104 @@ class _HealthDetail extends StatelessWidget {
           SizedBox(
             width: 4,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                info["title"]!,
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              Text(
-                "$total ${info["unit"]!}",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              Text(
-                "$average ${info["unit"]!} (média)",
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  info["title"]!,
+                  style: Theme.of(context).textTheme.titleSmall,
+                  maxLines: 2,
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Text(
+                  "$total ${info["unit"]!}",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                Text(
+                  "$average ${info["unit"]!} (média)",
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PersonInformation extends StatelessWidget {
+  /// This widget represents person's information, informations such as gender
+  /// age and height
+  ///
+  /// It contains a title, 3 text with the informations and a button to open
+  /// the modal to edit the informations
+  ///
+  /// It has 3 parameters:
+  /// - [gender]: User's gender;
+  /// - [age]: User's age;
+  /// - [height]: User's height.
+  const _PersonInformation(
+      {super.key,
+      required this.gender,
+      required this.age,
+      required this.height});
+  final String gender;
+  final int age;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 125,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Você",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          SizedBox(
+            height: 2,
+          ),
+          Text(
+            gender,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          Text(
+            "$age Anos",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          Text(
+            "$height metros",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          RawMaterialButton(
+            onPressed: () {},
+            fillColor: Theme.of(context).colorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            visualDensity: VisualDensity.compact,
+            child: Row(
+              children: [
+                Icon(
+                  Icons.boy_rounded,
+                  color: Theme.of(context).colorScheme.background,
+                ),
+                Text(
+                  "Mudar info.",
+                  style: TextStyle(
+                      fontFamily: "Roboto",
+                      color: Theme.of(context).colorScheme.background,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
