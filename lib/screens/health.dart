@@ -19,7 +19,7 @@ class HealthWidget extends StatelessWidget {
             "Saúde",
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
           Wrap(
@@ -37,21 +37,29 @@ class HealthWidget extends StatelessWidget {
                   info: healthDetail["time"], total: 1440, average: 45)
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 24,
           ),
           Text(
             "Mais informações",
             style: Theme.of(context).textTheme.titleLarge,
           ),
-          SizedBox(
+          const SizedBox(
             height: 12,
           ),
-          Row(
+          const Wrap(
+            spacing: 10,
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runAlignment: WrapAlignment.spaceBetween,
             children: [
-              _PersonInformation(gender: "Masculino", age: 25, height: 1.7)
+              _PersonInformation(gender: "Masculino", age: 25, height: 1.7),
+              _WeightInfo(
+                lastWeight: 75.0,
+                currentWeight: 70.0,
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
@@ -98,7 +106,7 @@ class _HealthDetail extends StatelessWidget {
             height: 40,
             colorFilter: ColorFilter.mode(info["color"]!, BlendMode.srcIn),
           ),
-          SizedBox(
+          const SizedBox(
             width: 4,
           ),
           Expanded(
@@ -110,7 +118,7 @@ class _HealthDetail extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleSmall,
                   maxLines: 2,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 2,
                 ),
                 Text(
@@ -153,7 +161,8 @@ class _PersonInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 125,
+      width: 110,
+      height: 113,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -161,7 +170,7 @@ class _PersonInformation extends StatelessWidget {
             "Você",
             style: Theme.of(context).textTheme.titleSmall,
           ),
-          SizedBox(
+          const SizedBox(
             height: 2,
           ),
           Text(
@@ -177,8 +186,84 @@ class _PersonInformation extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
           PrimaryButton(
-              title: "Mudar info.",
+              title: "Mudar info",
               icon: Icons.boy_rounded,
+              centralizeTitle: false,
+              padding: EdgeInsets.zero,
+              onPressed: () {})
+        ],
+      ),
+    );
+  }
+}
+
+class _WeightInfo extends StatelessWidget {
+  /// This widget represents person's weigh informations, informations such as last
+  /// weight and current weight
+  ///
+  /// It contains a title, 2 text with the informations, icon indicating if the
+  /// current weight is greater, equal or lower than the last weight and a [PrimaryButton]
+  /// to open the modal to edit the current weight.
+  ///
+  /// It has 2 parameters:
+  /// - [lastWeight]: User's last weight
+  /// - [currentWeight]: User's current weight;
+  const _WeightInfo(
+      {super.key, required this.lastWeight, required this.currentWeight});
+  final double lastWeight;
+  final double currentWeight;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 110,
+      height: 113,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Peso",
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              const SizedBox(
+                height: 2,
+              ),
+              Text(
+                "Anterior: $lastWeight",
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "Atual: ",
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  Text(
+                    currentWeight.toString(),
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  currentWeight != lastWeight
+                      ? currentWeight < lastWeight
+                          ? const Icon(
+                              Icons.arrow_downward_rounded,
+                              color: goodResult,
+                            )
+                          : const Icon(
+                              Icons.arrow_upward_rounded,
+                              color: badResult,
+                            )
+                      : const SizedBox.shrink()
+                ],
+              ),
+            ],
+          ),
+          PrimaryButton(
+              title: "Medi peso",
+              icon: Icons.monitor_weight,
               centralizeTitle: false,
               padding: EdgeInsets.zero,
               onPressed: () {})

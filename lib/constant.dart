@@ -39,3 +39,6 @@ const Color calorieColor = Color.fromRGBO(255, 122, 0, 1);
 const Color distanceColor = Color.fromRGBO(255, 214, 0, 1);
 const Color stepColor = Color.fromRGBO(0, 102, 255, 1);
 const Color timeColor = Color.fromRGBO(0, 255, 87, 1);
+
+const Color goodResult = Color.fromRGBO(138, 255, 128, 1);
+const Color badResult = Color.fromRGBO(255, 128, 128, 1);

@@ -32,7 +32,7 @@ class PrimaryButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      visualDensity: VisualDensity.compact,
+      visualDensity: VisualDensity(vertical: -2, horizontal: 1),
       child: Row(
         mainAxisAlignment: centralizeTitle
             ? MainAxisAlignment.center
