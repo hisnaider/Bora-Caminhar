@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// This function is used to calculate the BMI of the user.
 ///
 /// It uses the weight and the height of the user to calculate and return the

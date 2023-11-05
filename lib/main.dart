@@ -16,6 +16,11 @@ class MainApp extends StatelessWidget {
             primary: Color.fromRGBO(0, 255, 194, 1),
             background: Color.fromRGBO(26, 29, 38, 1),
             surface: Color.fromRGBO(20, 23, 31, 1)),
+        bottomSheetTheme: BottomSheetThemeData(
+          surfaceTintColor: Colors.transparent,
+          backgroundColor: Colors.black.withOpacity(0.8),
+          modalElevation: 5,
+        ),
         textTheme: TextTheme(
           bodySmall: TextStyle(
             fontFamily: "Roboto",

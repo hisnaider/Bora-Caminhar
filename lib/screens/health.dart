@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:bora_caminhar/components/primary_button.dart';
+import 'package:bora_caminhar/components/weight_modal.dart';
 import 'package:bora_caminhar/constant.dart';
 import 'package:bora_caminhar/util/util.dart';
 import 'package:flutter/material.dart';
@@ -264,12 +265,20 @@ class _WeightInfo extends StatelessWidget {
             ],
           ),
           PrimaryButton(
-              title: "Medir peso",
-              icon: Icons.monitor_weight,
-              centralizeTitle: false,
-              height: 35,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              onPressed: () {})
+            title: "Medir peso",
+            icon: Icons.monitor_weight,
+            centralizeTitle: false,
+            height: 35,
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            onPressed: () {
+              showBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return WeightModal();
+                },
+              );
+            },
+          )
         ],
       ),
     );
