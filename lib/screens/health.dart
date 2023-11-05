@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constant.dart';
+import 'package:bora_caminhar/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -47,18 +48,26 @@ class HealthWidget extends StatelessWidget {
           const SizedBox(
             height: 12,
           ),
-          const Wrap(
-            spacing: 10,
-            alignment: WrapAlignment.spaceBetween,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            runAlignment: WrapAlignment.spaceBetween,
-            children: [
-              _PersonInformation(gender: "Masculino", age: 25, height: 1.7),
-              _WeightInfo(
-                lastWeight: 75.0,
-                currentWeight: 70.0,
-              ),
-            ],
+          IntrinsicHeight(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _PersonInformation(
+                  gender: "Masculino",
+                  age: 25,
+                  height: 1.7,
+                ),
+                SizedBox(width: 10),
+                _WeightInfo(
+                  lastWeight: 75.0,
+                  currentWeight: 70.0,
+                ),
+                SizedBox(width: 10),
+                _BMI(
+                  bmiInfo: bmiCalculate(weight: 71.3, height: 1.7),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -160,9 +169,7 @@ class _PersonInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 110,
-      height: 113,
+    return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -190,6 +197,7 @@ class _PersonInformation extends StatelessWidget {
               icon: Icons.boy_rounded,
               centralizeTitle: false,
               padding: EdgeInsets.zero,
+              height: 35,
               onPressed: () {})
         ],
       ),
@@ -198,7 +206,7 @@ class _PersonInformation extends StatelessWidget {
 }
 
 class _WeightInfo extends StatelessWidget {
-  /// This widget represents person's weigh informations, informations such as last
+  /// This widget represents person's weight informations, informations such as last
   /// weight and current weight
   ///
   /// It contains a title, 2 text with the informations, icon indicating if the
@@ -215,58 +223,119 @@ class _WeightInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 110,
-      height: 113,
+    return Expanded(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Text(
+            "Peso",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(
+            height: 2,
+          ),
+          Text(
+            "Anterior: $lastWeight",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                "Peso",
-                style: Theme.of(context).textTheme.titleSmall,
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              Text(
-                "Anterior: $lastWeight",
+                "Atual: ",
                 style: Theme.of(context).textTheme.bodySmall,
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "Atual: ",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  Text(
-                    currentWeight.toString(),
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  currentWeight != lastWeight
-                      ? currentWeight < lastWeight
-                          ? const Icon(
-                              Icons.arrow_downward_rounded,
-                              color: goodResult,
-                            )
-                          : const Icon(
-                              Icons.arrow_upward_rounded,
-                              color: badResult,
-                            )
-                      : const SizedBox.shrink()
-                ],
+              Text(
+                currentWeight.toString(),
+                style: Theme.of(context).textTheme.titleSmall,
               ),
+              currentWeight != lastWeight
+                  ? currentWeight < lastWeight
+                      ? const Icon(
+                          Icons.arrow_downward_rounded,
+                          color: goodResult,
+                        )
+                      : const Icon(
+                          Icons.arrow_upward_rounded,
+                          color: badResult,
+                        )
+                  : const SizedBox.shrink()
             ],
           ),
           PrimaryButton(
-              title: "Medi peso",
+              title: "Medir peso",
               icon: Icons.monitor_weight,
               centralizeTitle: false,
-              padding: EdgeInsets.zero,
+              height: 35,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               onPressed: () {})
+        ],
+      ),
+    );
+  }
+}
+
+class _BMI extends StatelessWidget {
+  const _BMI({super.key, required this.bmiInfo});
+  final Map<String, dynamic> bmiInfo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "IMC",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(
+            height: 2,
+          ),
+          Text(
+            bmiInfo["value"].toStringAsFixed(2),
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          Text(
+            bmiInfo["description"],
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: bmiIndexColor[bmiInfo["index"]]),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              for (int i = 0; i < 5; i++) ...[
+                Expanded(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: i == bmiInfo["index"] ? 5 : 0,
+                        width: 4,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(10)),
+                          color: bmiIndexColor[i],
+                        ),
+                      ),
+                      Container(
+                        height: 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: bmiIndexColor[i],
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ]
+            ],
+          ),
+          SizedBox(height: 29)
         ],
       ),
     );

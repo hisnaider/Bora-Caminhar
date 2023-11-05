@@ -42,3 +42,11 @@ const Color timeColor = Color.fromRGBO(0, 255, 87, 1);
 
 const Color goodResult = Color.fromRGBO(138, 255, 128, 1);
 const Color badResult = Color.fromRGBO(255, 128, 128, 1);
+
+const Map<int, Color> bmiIndexColor = {
+  0: Color.fromRGBO(128, 186, 255, 1),
+  1: Color.fromRGBO(145, 255, 128, 1),
+  2: Color.fromRGBO(255, 242, 128, 1),
+  3: Color.fromRGBO(255, 174, 128, 1),
+  4: Color.fromRGBO(255, 128, 128, 1),
+};
