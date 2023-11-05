@@ -1,3 +1,16 @@
+/// This function is used to calculate the BMI of the user.
+///
+/// It uses the weight and the height of the user to calculate and return the
+/// results in a Map<String, dynamic> format with value, description and index
+///
+/// It has 2 parameters:
+/// - [weight] - Weight of the user;
+/// - [height] - Height of the user;
+///
+/// It returns a Map<String, dynamic> with following properties:
+/// - `value`: Result of BMI calculation;
+/// - `description`: Description of the result;
+/// - `index`: Index of the result (like a level)
 Map<String, dynamic> bmiCalculate(
     {required double weight, required double height}) {
   final double bmi = weight / (height * height);

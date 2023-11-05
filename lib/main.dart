@@ -20,6 +20,7 @@ class MainApp extends StatelessWidget {
           bodySmall: TextStyle(
             fontFamily: "Roboto",
             fontSize: 12,
+            fontWeight: FontWeight.w400,
             color: Colors.white.withOpacity(0.5),
           ),
           titleLarge: TextStyle(
