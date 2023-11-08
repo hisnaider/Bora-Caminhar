@@ -1,3 +1,4 @@
+import 'package:bora_caminhar/constant.dart';
 import 'package:bora_caminhar/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.dark(
-            primary: Color.fromRGBO(0, 255, 194, 1),
+            primary: primaryColor,
             background: Color.fromRGBO(26, 29, 38, 1),
             surface: Color.fromRGBO(20, 23, 31, 1)),
         bottomSheetTheme: BottomSheetThemeData(

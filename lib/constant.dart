@@ -35,6 +35,8 @@ const Map<String, dynamic> healthDetail = {
   },
 };
 
+const Color primaryColor = Color.fromRGBO(0, 255, 194, 1);
+
 const Color calorieColor = Color.fromRGBO(255, 122, 0, 1);
 const Color distanceColor = Color.fromRGBO(255, 214, 0, 1);
 const Color stepColor = Color.fromRGBO(0, 102, 255, 1);
