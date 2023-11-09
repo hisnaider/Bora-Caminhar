@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
             surface: Color.fromRGBO(20, 23, 31, 1)),
         bottomSheetTheme: BottomSheetThemeData(
           surfaceTintColor: Colors.transparent,
-          backgroundColor: Colors.black.withOpacity(0.8),
+          backgroundColor: Colors.transparent,
           modalElevation: 5,
         ),
         textTheme: TextTheme(
@@ -34,6 +34,12 @@ class MainApp extends StatelessWidget {
             fontSize: 24,
             color: Colors.white,
             fontWeight: FontWeight.w600,
+          ),
+          titleMedium: TextStyle(
+            fontFamily: "OpenSans",
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
           ),
           titleSmall: TextStyle(
             fontFamily: "Roboto",

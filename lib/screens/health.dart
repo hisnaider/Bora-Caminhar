@@ -197,8 +197,7 @@ class _PersonInformation extends StatelessWidget {
               title: "Mudar info",
               icon: Icons.boy_rounded,
               centralizeTitle: false,
-              padding: EdgeInsets.zero,
-              height: 35,
+              padding: EdgeInsets.all(5),
               onPressed: () {})
         ],
       ),
@@ -268,13 +267,12 @@ class _WeightInfo extends StatelessWidget {
             title: "Medir peso",
             icon: Icons.monitor_weight,
             centralizeTitle: false,
-            height: 35,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.all(5),
             onPressed: () {
-              showBottomSheet(
+              showModalBottomSheet(
                 context: context,
                 builder: (BuildContext context) {
-                  return WeightModal();
+                  return const WeightModal();
                 },
               );
             },
@@ -333,7 +331,7 @@ class _BMI extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 35,
+            height: 40,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -14,13 +14,13 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton(
       {super.key,
       required this.title,
-      this.height,
+      this.textStyle,
       this.icon,
       required this.centralizeTitle,
       required this.padding,
       required this.onPressed});
   final String title;
-  final double? height;
+  final TextStyle? textStyle;
   final IconData? icon;
   final bool centralizeTitle;
   final EdgeInsets padding;
@@ -35,8 +35,6 @@ class PrimaryButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      constraints: BoxConstraints(minWidth: 88.0, minHeight: height ?? 36.0),
-      visualDensity: VisualDensity.compact,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: centralizeTitle
@@ -51,10 +49,11 @@ class PrimaryButton extends StatelessWidget {
               : SizedBox.shrink(),
           Text(
             title,
-            style: TextStyle(
-                fontFamily: "Roboto",
-                color: Theme.of(context).colorScheme.background,
-                fontWeight: FontWeight.w600),
+            style: textStyle ??
+                TextStyle(
+                    fontFamily: "Roboto",
+                    color: Theme.of(context).colorScheme.background,
+                    fontWeight: FontWeight.w600),
           ),
         ],
       ),
