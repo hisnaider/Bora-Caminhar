@@ -204,41 +204,55 @@ class _NewWeightWidget extends StatelessWidget {
     double weightDifference =
         ((weight - currentWeight) * 10).roundToDouble() / 10;
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Expanded(child: SizedBox.shrink()),
         Text(
           "$weight",
           style: Theme.of(context).textTheme.titleLarge,
           textAlign: TextAlign.center,
         ),
         const SizedBox(width: 10),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white.withOpacity(0.1),
-          ),
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            _WeightChangeIndicator(weightDifference: weightDifference),
-            const SizedBox(width: 4),
-            Opacity(
-              opacity: 0.75,
-              child: Text("$weightDifference",
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                        fontSize: 18,
-                      )),
-            ),
-            Opacity(
-              opacity: 0.25,
-              child: Text(
-                " kg",
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(fontSize: 15),
+        Expanded(
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white.withOpacity(0.1),
+                ),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      _WeightChangeIndicator(
+                          weightDifference: weightDifference),
+                      const SizedBox(width: 4),
+                      Opacity(
+                        opacity: 0.75,
+                        child: Text("$weightDifference",
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(
+                                  fontSize: 18,
+                                )),
+                      ),
+                      Opacity(
+                        opacity: 0.25,
+                        child: Text(
+                          " kg",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .copyWith(fontSize: 15),
+                        ),
+                      ),
+                    ]),
               ),
-            ),
-          ]),
+              Expanded(child: SizedBox.shrink()),
+            ],
+          ),
         )
       ],
     );
