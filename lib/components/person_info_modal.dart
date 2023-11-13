@@ -9,6 +9,7 @@ class PersonInfoModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Gender? currentGender;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -45,17 +46,8 @@ class PersonInfoModal extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _GenderButton(
-                            buttonGender: Gender.male,
-                          ),
-                          _GenderButton(
-                            buttonGender: Gender.female,
-                          )
-                        ],
+                      child: Column(
+                        children: [_GenderSelectWidget()],
                       ),
                     ),
                     SizedBox(width: 10),
@@ -193,25 +185,113 @@ class _HeightSliderState extends State<_HeightSlider> {
   }
 }
 
-class _GenderButton extends StatelessWidget {
-  const _GenderButton({super.key, this.userGender, required this.buttonGender});
-  final Gender? userGender;
-  final Gender buttonGender;
+/// This widget allows the user to select their gender.
+///
+/// It consists of two [_GenderButton] widgets, one for the male gender and another
+/// for the female gender. The selected gender is tracked using the [userGender] state,
+/// and the [selectGender] method is used to update the selected gender.
+class _GenderSelectWidget extends StatefulWidget {
+  const _GenderSelectWidget({super.key});
+
+  @override
+  State<_GenderSelectWidget> createState() => __GenderSelectWidgetState();
+}
+
+class __GenderSelectWidgetState extends State<_GenderSelectWidget> {
+  Gender? userGender;
+
+  /// This function is called when one of the [_GenderButton] widgets is tapped,
+  /// and it updates the state variable `userGender` with the selected gender.
+  void selectGender(Gender gender) {
+    setState(() {
+      userGender = gender;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    IconData genderIcon = Icons.male_rounded;
-    if (userGender == Gender.female) {
-      genderIcon = Icons.female_rounded;
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          child: _GenderButton(
+            buttonGender: Gender.male,
+            genderSelected: Gender.male == userGender,
+            selectGender: () => selectGender(Gender.male),
+          ),
+        ),
+        SizedBox(width: 5),
+        Expanded(
+          child: _GenderButton(
+            buttonGender: Gender.female,
+            genderSelected: Gender.female == userGender,
+            selectGender: () => selectGender(Gender.female),
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _GenderButton extends StatelessWidget {
+  /// Gender selection button.
+  ///
+  /// Displays a rounded container with a surface background containing an icon
+  /// representing the gender. When tapped, the border color changes to the
+  /// primary color, and the icon's opacity changes to 1.
+  ///
+  /// It has 3 parameters:
+  /// - [genderSelected]: Bool to determine if the gender is selected;
+  /// - [buttonGender]: Gender of the button;
+  /// - [selectGender]: Callback function to select the gender.
+  const _GenderButton({
+    super.key,
+    required this.genderSelected,
+    required this.buttonGender,
+    required this.selectGender,
+  });
+  final bool genderSelected;
+  final Gender buttonGender;
+  final VoidCallback selectGender;
+
+  @override
+  Widget build(BuildContext context) {
+    /// Returns the gender icon based on the specified `buttonGender`.
+    ///
+    /// The function switches between male and female genders and returns the
+    /// corresponding icon with a specific color and size.
+    Icon genderIcon() {
+      switch (buttonGender) {
+        case Gender.male:
+          return Icon(
+            Icons.male_outlined,
+            color: Colors.blue.shade300,
+            size: 50,
+          );
+        case Gender.female:
+          return Icon(
+            Icons.female,
+            color: Colors.red.shade300,
+            size: 50,
+          );
+      }
     }
-    return Container(
-      height: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 1, color: primaryColor),
-        color: Theme.of(context).colorScheme.surface,
+
+    return InkWell(
+      onTap: selectGender,
+      child: Container(
+        height: 85,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border:
+              genderSelected ? Border.all(width: 1, color: primaryColor) : null,
+          color: Theme.of(context).colorScheme.surface,
+        ),
+        child: Opacity(
+          opacity: genderSelected ? 1 : 0.25,
+          child: genderIcon(),
+        ),
       ),
-      child: Icon(genderIcon),
     );
   }
 }
