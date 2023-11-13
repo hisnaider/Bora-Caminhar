@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:bora_caminhar/components/person_info_modal.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/components/weight_modal.dart';
 import 'package:bora_caminhar/constant.dart';
@@ -194,11 +195,19 @@ class _PersonInformation extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
           PrimaryButton(
-              title: "Mudar info",
-              icon: Icons.boy_rounded,
-              centralizeTitle: false,
-              padding: EdgeInsets.all(5),
-              onPressed: () {})
+            title: "Mudar info",
+            icon: Icons.boy_rounded,
+            centralizeTitle: false,
+            padding: EdgeInsets.all(5),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return const PersonInfoModal();
+                },
+              );
+            },
+          )
         ],
       ),
     );

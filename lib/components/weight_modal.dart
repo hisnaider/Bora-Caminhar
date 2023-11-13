@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:bora_caminhar/components/index_indicator.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constant.dart';
 import 'package:flutter/material.dart';
@@ -75,18 +76,18 @@ class WeightModal extends StatelessWidget {
   }
 }
 
-/// This Widget displays the weight slider to user determines new weight
-///
-/// It consists of a rounded container with the primary background color, which
-/// contains the [_NewWeightWidget] displaying the selected weight and the
-/// difference from the current weight. The slider functionality is achieved
-/// through a PageView.builder displaying [_Item] widgets for user interaction.
-///
-/// It had 3 parameters:
-/// - [min]: Minimum weight to select;
-/// - [max]: Maximum weight to select;
-
 class _WeightSlider extends StatefulWidget {
+  /// This Widget displays the weight slider to user determines new weight
+  ///
+  /// It consists of a rounded container with the primary background color, which
+  /// contains the [_NewWeightWidget] displaying the selected weight and the
+  /// difference from the current weight. The slider functionality is achieved
+  /// through a PageView.builder displaying the weight and index indicator using
+  /// [CustomSliderItem].
+  ///
+  /// It had 3 parameters:
+  /// - [min]: Minimum weight to select;
+  /// - [max]: Maximum weight to select;
   const _WeightSlider({
     super.key,
     required this.min,
@@ -133,16 +134,31 @@ class __WeightSliderState extends State<_WeightSlider> {
   }
 
   @override
+  // Widget build(BuildContext context) {
+  //   return CustomSliderWidget(
+  //     childValue: _NewWeightWidget(
+  //       weight: newWeight,
+  //       currentWeight: 70.0,
+  //     ),
+  //     controller: controller,
+  //     padding: const EdgeInsets.only(top: 5),
+  //     min: widget.min,
+  //     max: widget.max,
+  //     horizontal: true,
+  //     margin: const EdgeInsets.only(top: 6),
+  //     height: 50,
+  //   );
+  // }
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 6),
       padding: const EdgeInsets.only(top: 5),
+      clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _NewWeightWidget(
             weight: newWeight,
@@ -150,6 +166,7 @@ class __WeightSliderState extends State<_WeightSlider> {
           ),
           SizedBox(
             height: 50,
+            width: double.infinity,
             child: Stack(
               children: [
                 PageView.builder(
@@ -157,11 +174,25 @@ class __WeightSliderState extends State<_WeightSlider> {
                   scrollDirection: Axis.horizontal,
                   controller: controller,
                   itemBuilder: (context, rawIndex) {
-                    int index = rawIndex - 3;
-                    return _Item(
-                      index: index >= widget.min && index <= widget.max
-                          ? index
-                          : null,
+                    int? index = rawIndex - 3;
+                    index = index >= widget.min && index <= widget.max
+                        ? index
+                        : null;
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (index != null)
+                          Center(
+                            child: Text(index.toString()),
+                          ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        const IndexIndicator(
+                          horizontal: true,
+                          numberOfItems: 10,
+                        ),
+                      ],
                     );
                   },
                 ),
@@ -206,7 +237,7 @@ class _NewWeightWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(child: SizedBox.shrink()),
+        const Expanded(child: SizedBox.shrink()),
         Text(
           "$weight",
           style: Theme.of(context).textTheme.titleLarge,
@@ -250,7 +281,7 @@ class _NewWeightWidget extends StatelessWidget {
                       ),
                     ]),
               ),
-              Expanded(child: SizedBox.shrink()),
+              const Expanded(child: SizedBox.shrink()),
             ],
           ),
         )
@@ -292,58 +323,6 @@ class _WeightChangeIndicator extends StatelessWidget {
     return const Icon(
       Icons.arrow_upward_rounded,
       color: badResult,
-    );
-  }
-}
-
-class _Item extends StatelessWidget {
-  /// This widget is used as a item of the weight slider.
-  ///
-  /// It displays 11 thin grey containers, that indicates weight, and a text above
-  /// the center thin container. The center container is where the weight is a integer
-  ///
-  /// It has 1 parameter:
-  /// - [index]: Index of the item to display
-  const _Item({super.key, this.index});
-  final int? index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        if (index != null)
-          Center(
-            child: Text(index.toString()),
-          ),
-        SizedBox(
-          height: 28,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: List.generate(10, (index) {
-              double width = 0.5;
-              double height = 10;
-              if (index == 5) {
-                width = 1;
-                height = 18;
-              }
-              return Expanded(
-                child: Row(
-                  children: [
-                    Transform.translate(
-                        offset: Offset(-width / 2, 0),
-                        child: Container(
-                          width: width,
-                          height: height,
-                          color: Colors.grey,
-                        )),
-                  ],
-                ),
-              );
-            }),
-          ),
-        )
-      ],
     );
   }
 }
