@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bora_caminhar/components/index_indicator.dart';
+import 'package:bora_caminhar/components/indicator_arrow.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constant.dart';
 import 'package:flutter/material.dart';
@@ -134,21 +135,6 @@ class __WeightSliderState extends State<_WeightSlider> {
   }
 
   @override
-  // Widget build(BuildContext context) {
-  //   return CustomSliderWidget(
-  //     childValue: _NewWeightWidget(
-  //       weight: newWeight,
-  //       currentWeight: 70.0,
-  //     ),
-  //     controller: controller,
-  //     padding: const EdgeInsets.only(top: 5),
-  //     min: widget.min,
-  //     max: widget.max,
-  //     horizontal: true,
-  //     margin: const EdgeInsets.only(top: 6),
-  //     height: 50,
-  //   );
-  // }
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 6),
@@ -202,7 +188,7 @@ class __WeightSliderState extends State<_WeightSlider> {
                     width: 10,
                     height: 25,
                     child: CustomPaint(
-                      painter: _WeightPointer(),
+                      painter: IndexArrowIndicator(renderUpArrow: true),
                     ),
                   ),
                 ),
@@ -324,45 +310,5 @@ class _WeightChangeIndicator extends StatelessWidget {
       Icons.arrow_upward_rounded,
       color: badResult,
     );
-  }
-}
-
-/// This class create the arrow that indicates the new weight
-///
-/// It paints a up arrow with primary color by defining the points coordinates in
-/// a cartesian plane.
-///
-/// It has 3 primary functions:
-/// - [paint]: Used to paint the arrow or any other form;
-/// - [trianglePointer]: It's the point coordinates to create the up arrow;
-/// - [shouldRepaint]: Used to rebuild the paint if theres is a change. As there
-/// will be no changes, it will return false.
-class _WeightPointer extends CustomPainter {
-  _WeightPointer();
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = primaryColor;
-    canvas.drawPath(trianglePointer(size.width, size.height), paint);
-  }
-
-  Path trianglePointer(
-    double x,
-    double y,
-  ) {
-    return Path()
-      ..lineTo(x * 0.5, 0)
-      ..lineTo(x * 0, y * 0.3)
-      ..lineTo(x * 0.4, y * 0.3)
-      ..lineTo(x * 0.4, y * 1)
-      ..lineTo(x * 0.6, y * 1)
-      ..lineTo(x * 0.6, y * 0.3)
-      ..lineTo(x * 1, y * 0.3)
-      ..lineTo(x * 0.5, 0);
-  }
-
-  @override
-  bool shouldRepaint(_WeightPointer oldDelegate) {
-    return false;
   }
 }

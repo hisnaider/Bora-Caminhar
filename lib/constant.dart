@@ -52,3 +52,11 @@ const Map<int, Color> bmiIndexColor = {
   3: Color.fromRGBO(255, 174, 128, 1),
   4: Color.fromRGBO(255, 128, 128, 1),
 };
+
+enum Gender {
+  male("Masculino"),
+  female("Feminino");
+
+  const Gender(this.label);
+  final String label;
+}
