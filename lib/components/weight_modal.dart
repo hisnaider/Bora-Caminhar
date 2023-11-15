@@ -168,8 +168,11 @@ class __WeightSliderState extends State<_WeightSlider> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         if (index != null)
-                          Center(
-                            child: Text(index.toString()),
+                          Opacity(
+                            opacity: 0.25,
+                            child: Center(
+                              child: Text(index.toString()),
+                            ),
                           ),
                         const SizedBox(
                           height: 5,

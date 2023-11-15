@@ -9,7 +9,6 @@ class PersonInfoModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Gender? currentGender;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -41,16 +40,22 @@ class PersonInfoModal extends StatelessWidget {
                 height: 25,
                 thickness: 1,
               ),
-              IntrinsicHeight(
+              const IntrinsicHeight(
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Column(
-                        children: [_GenderSelectWidget()],
+                        children: [
+                          _GenderSelectWidget(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          _BirthDateSelect()
+                        ],
                       ),
                     ),
-                    SizedBox(width: 10),
+                    SizedBox(width: 24),
                     _HeightSlider(
                       height: 1.7,
                     )
@@ -116,71 +121,80 @@ class _HeightSliderState extends State<_HeightSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.hardEdge,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 55,
-            height: 175,
-            child: Stack(
-              children: [
-                PageView.builder(
-                  pageSnapping: false,
-                  scrollDirection: Axis.vertical,
-                  controller: controller,
-                  reverse: true,
-                  itemBuilder: (context, rawIndex) {
-                    int? index = rawIndex - 3;
-                    index = index >= 0 && index <= 25 ? index : null;
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const IndexIndicator(
-                            horizontal: false, numberOfItems: 10),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        if (index != null)
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child:
-                                  Text("${(index * 0.1).toStringAsFixed(1)}"),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Altura", style: Theme.of(context).textTheme.titleSmall),
+        SizedBox(height: 5),
+        Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: 55,
+                height: 175,
+                child: Stack(
+                  children: [
+                    PageView.builder(
+                      pageSnapping: false,
+                      scrollDirection: Axis.vertical,
+                      controller: controller,
+                      reverse: true,
+                      itemBuilder: (context, rawIndex) {
+                        int? index = rawIndex - 3;
+                        index = index >= 0 && index <= 25 ? index : null;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const IndexIndicator(
+                                horizontal: false, numberOfItems: 10),
+                            const SizedBox(
+                              height: 5,
                             ),
-                          ),
-                      ],
-                    );
-                  },
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: SizedBox(
-                    width: 25,
-                    height: 10,
-                    child: CustomPaint(
-                      painter: IndexArrowIndicator(renderUpArrow: false),
+                            if (index != null)
+                              Opacity(
+                                opacity: 0.25,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                        "${(index * 0.1).toStringAsFixed(1)}"),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        width: 25,
+                        height: 10,
+                        child: CustomPaint(
+                          painter: IndexArrowIndicator(renderUpArrow: false),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Text(
+                  "${newHeight.toStringAsFixed(2)}",
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              "${newHeight.toStringAsFixed(2)}",
-              style: Theme.of(context).textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -210,24 +224,34 @@ class __GenderSelectWidgetState extends State<_GenderSelectWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: _GenderButton(
-            buttonGender: Gender.male,
-            genderSelected: Gender.male == userGender,
-            selectGender: () => selectGender(Gender.male),
-          ),
+        Text(
+          "Gênero",
+          style: Theme.of(context).textTheme.titleSmall,
         ),
-        SizedBox(width: 5),
-        Expanded(
-          child: _GenderButton(
-            buttonGender: Gender.female,
-            genderSelected: Gender.female == userGender,
-            selectGender: () => selectGender(Gender.female),
-          ),
-        )
+        SizedBox(height: 5),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: _GenderButton(
+                buttonGender: Gender.male,
+                genderSelected: Gender.male == userGender,
+                selectGender: () => selectGender(Gender.male),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: _GenderButton(
+                buttonGender: Gender.female,
+                genderSelected: Gender.female == userGender,
+                selectGender: () => selectGender(Gender.female),
+              ),
+            )
+          ],
+        ),
       ],
     );
   }
@@ -290,6 +314,62 @@ class _GenderButton extends StatelessWidget {
         child: Opacity(
           opacity: genderSelected ? 1 : 0.25,
           child: genderIcon(),
+        ),
+      ),
+    );
+  }
+}
+
+class _BirthDateSelect extends StatefulWidget {
+  const _BirthDateSelect({super.key});
+
+  @override
+  State<_BirthDateSelect> createState() => _BirthDateSelectState();
+}
+
+class _BirthDateSelectState extends State<_BirthDateSelect> {
+  int day = 1;
+  int month = 1;
+  int year = 2012;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 50,
+          width: 60,
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: _MyListWheelScrollView(
+            childCount: daysAndMonth[month]["numberOfDays"],
+            startValue: 1,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MyListWheelScrollView extends StatelessWidget {
+  const _MyListWheelScrollView(
+      {super.key, required this.childCount, required this.startValue});
+  final int childCount;
+  final int startValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListWheelScrollView.useDelegate(
+      itemExtent: 24,
+      physics: FixedExtentScrollPhysics(),
+      diameterRatio: 1.25,
+      overAndUnderCenterOpacity: 0.25,
+      childDelegate: ListWheelChildBuilderDelegate(
+        childCount: childCount,
+        builder: (context, index) => Text(
+          "${index + startValue}",
+          style: Theme.of(context).textTheme.bodyLarge,
         ),
       ),
     );

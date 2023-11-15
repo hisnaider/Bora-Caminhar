@@ -35,6 +35,21 @@ const Map<String, dynamic> healthDetail = {
   },
 };
 
+const Map<int, dynamic> daysAndMonth = {
+  1: {"name": "Janeiro", "numberOfDays": 31},
+  2: {"name": "Fevereiro", "numberOfDays": 28},
+  3: {"name": "Março", "numberOfDays": 31},
+  4: {"name": "Abril", "numberOfDays": 30},
+  5: {"name": "Maio", "numberOfDays": 31},
+  6: {"name": "Junho", "numberOfDays": 30},
+  7: {"name": "Julho", "numberOfDays": 31},
+  8: {"name": "Agosto", "numberOfDays": 31},
+  9: {"name": "Setembro", "numberOfDays": 30},
+  10: {"name": "Outubro", "numberOfDays": 31},
+  11: {"name": "Novembro", "numberOfDays": 30},
+  12: {"name": "Dezembro", "numberOfDays": 31},
+};
+
 const Color primaryColor = Color.fromRGBO(0, 255, 194, 1);
 
 const Color calorieColor = Color.fromRGBO(255, 122, 0, 1);
