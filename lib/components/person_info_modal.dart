@@ -125,7 +125,7 @@ class _HeightSliderState extends State<_HeightSlider> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Altura", style: Theme.of(context).textTheme.titleSmall),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
@@ -136,7 +136,7 @@ class _HeightSliderState extends State<_HeightSlider> {
             children: [
               SizedBox(
                 width: 55,
-                height: 175,
+                height: 190,
                 child: Stack(
                   children: [
                     PageView.builder(
@@ -231,7 +231,7 @@ class __GenderSelectWidgetState extends State<_GenderSelectWidget> {
           "Gênero",
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -330,22 +330,49 @@ class _BirthDateSelect extends StatefulWidget {
 class _BirthDateSelectState extends State<_BirthDateSelect> {
   int day = 1;
   int month = 1;
-  int year = 2012;
+  int year = DateTime.now().year - 12;
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          height: 50,
-          width: 60,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: _MyListWheelScrollView(
-            childCount: daysAndMonth[month]["numberOfDays"],
-            startValue: 1,
-          ),
+        Text(
+          "Data de nascimento",
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        const SizedBox(height: 5),
+        Row(
+          children: [
+            _MyListWheelScrollView(
+              childCount: daysAndMonth[month]["numberOfDays"],
+              startValue: 1,
+              onSelectedItemChanged: (value) {
+                setState(() {
+                  day = value;
+                });
+              },
+            ),
+            const SizedBox(width: 5),
+            _MyListWheelScrollView(
+              childCount: 12,
+              startValue: 1,
+              onSelectedItemChanged: (value) {
+                setState(() {
+                  month = value;
+                });
+              },
+            ),
+            const SizedBox(width: 5),
+            _MyListWheelScrollView(
+              childCount: 89,
+              startValue: DateTime.now().year - 100,
+              onSelectedItemChanged: (value) {
+                setState(() {
+                  year = value;
+                });
+              },
+            ),
+          ],
         ),
       ],
     );
@@ -354,22 +381,36 @@ class _BirthDateSelectState extends State<_BirthDateSelect> {
 
 class _MyListWheelScrollView extends StatelessWidget {
   const _MyListWheelScrollView(
-      {super.key, required this.childCount, required this.startValue});
+      {super.key,
+      required this.childCount,
+      required this.startValue,
+      required this.onSelectedItemChanged});
   final int childCount;
   final int startValue;
+  final Function(int) onSelectedItemChanged;
 
   @override
   Widget build(BuildContext context) {
-    return ListWheelScrollView.useDelegate(
-      itemExtent: 24,
-      physics: FixedExtentScrollPhysics(),
-      diameterRatio: 1.25,
-      overAndUnderCenterOpacity: 0.25,
-      childDelegate: ListWheelChildBuilderDelegate(
-        childCount: childCount,
-        builder: (context, index) => Text(
-          "${index + startValue}",
-          style: Theme.of(context).textTheme.bodyLarge,
+    return Container(
+      height: 50,
+      width: startValue == 1 ? 60 : 90,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: ListWheelScrollView.useDelegate(
+        itemExtent: 24,
+        physics: const FixedExtentScrollPhysics(),
+        diameterRatio: 1.25,
+        overAndUnderCenterOpacity: 0.25,
+        onSelectedItemChanged: (value) =>
+            onSelectedItemChanged(value + startValue),
+        childDelegate: ListWheelChildBuilderDelegate(
+          childCount: childCount,
+          builder: (context, index) => Text(
+            "${index + startValue}",
+            style: Theme.of(context).textTheme.bodyLarge,
+          ),
         ),
       ),
     );
