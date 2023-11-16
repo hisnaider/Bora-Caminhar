@@ -40,7 +40,8 @@ class PersonInfoModal extends StatelessWidget {
                 height: 25,
                 thickness: 1,
               ),
-              const IntrinsicHeight(
+              const SizedBox(
+                height: 200,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -62,6 +63,7 @@ class PersonInfoModal extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 24),
               PrimaryButton(
                 title: "Confirmar mudanças",
                 centralizeTitle: true,
@@ -126,72 +128,77 @@ class _HeightSliderState extends State<_HeightSlider> {
       children: [
         Text("Altura", style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(height: 5),
-        Container(
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 55,
-                height: 190,
-                child: Stack(
-                  children: [
-                    PageView.builder(
-                      pageSnapping: false,
-                      scrollDirection: Axis.vertical,
-                      controller: controller,
-                      reverse: true,
-                      itemBuilder: (context, rawIndex) {
-                        int? index = rawIndex - 3;
-                        index = index >= 0 && index <= 25 ? index : null;
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const IndexIndicator(
-                                horizontal: false, numberOfItems: 10),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            if (index != null)
-                              Opacity(
-                                opacity: 0.25,
-                                child: Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(
-                                        "${(index * 0.1).toStringAsFixed(1)}"),
-                                  ),
+        Expanded(
+          child: Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 55,
+                  height: double.infinity,
+                  child: Stack(
+                    children: [
+                      PageView.builder(
+                        pageSnapping: false,
+                        scrollDirection: Axis.vertical,
+                        controller: controller,
+                        reverse: true,
+                        itemBuilder: (context, rawIndex) {
+                          int? index = rawIndex - 3;
+                          index = index >= 0 && index <= 25 ? index : null;
+                          return IntrinsicHeight(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const IndexIndicator(
+                                    horizontal: false, numberOfItems: 10),
+                                const SizedBox(
+                                  height: 5,
                                 ),
-                              ),
-                          ],
-                        );
-                      },
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        width: 25,
-                        height: 10,
-                        child: CustomPaint(
-                          painter: IndexArrowIndicator(renderUpArrow: false),
+                                if (index != null)
+                                  Opacity(
+                                    opacity: 0.25,
+                                    child: Center(
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
+                                        child: Text(
+                                            "${(index * 0.1).toStringAsFixed(1)}"),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: SizedBox(
+                          width: 25,
+                          height: 10,
+                          child: CustomPaint(
+                            painter: IndexArrowIndicator(renderUpArrow: false),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Text(
-                  "${newHeight.toStringAsFixed(2)}",
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Text(
+                    "${newHeight.toStringAsFixed(2)}",
+                    style: Theme.of(context).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
@@ -224,35 +231,36 @@ class __GenderSelectWidgetState extends State<_GenderSelectWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Gênero",
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-        const SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: _GenderButton(
-                buttonGender: Gender.male,
-                genderSelected: Gender.male == userGender,
-                selectGender: () => selectGender(Gender.male),
-              ),
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Gênero",
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          const SizedBox(height: 5),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _GenderButton(
+                  buttonGender: Gender.male,
+                  genderSelected: Gender.male == userGender,
+                  selectGender: () => selectGender(Gender.male),
+                ),
+                const SizedBox(width: 10),
+                _GenderButton(
+                  buttonGender: Gender.female,
+                  genderSelected: Gender.female == userGender,
+                  selectGender: () => selectGender(Gender.female),
+                )
+              ],
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: _GenderButton(
-                buttonGender: Gender.female,
-                genderSelected: Gender.female == userGender,
-                selectGender: () => selectGender(Gender.female),
-              ),
-            )
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -301,19 +309,21 @@ class _GenderButton extends StatelessWidget {
       }
     }
 
-    return InkWell(
-      onTap: selectGender,
-      child: Container(
-        height: 85,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border:
-              genderSelected ? Border.all(width: 1, color: primaryColor) : null,
-          color: Theme.of(context).colorScheme.surface,
-        ),
-        child: Opacity(
-          opacity: genderSelected ? 1 : 0.25,
-          child: genderIcon(),
+    return Expanded(
+      child: InkWell(
+        onTap: selectGender,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: genderSelected
+                ? Border.all(width: 1, color: primaryColor)
+                : null,
+            color: Theme.of(context).colorScheme.surface,
+          ),
+          child: Opacity(
+            opacity: genderSelected ? 1 : 0.25,
+            child: genderIcon(),
+          ),
         ),
       ),
     );

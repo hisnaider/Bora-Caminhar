@@ -36,7 +36,7 @@
   - [ ] Health option
     - [ ] Health widget
     - [X] Change weight modal
-    - [ ] Change person's information modal
+    - [X] Change person's information modal
   - [ ] Meditation option
     - [ ] Meditation widget
     - [ ] How meditation works modal
