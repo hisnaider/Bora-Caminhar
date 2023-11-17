@@ -19,7 +19,13 @@ class MeditationWidget extends StatelessWidget {
           ),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [_AudioSelector()],
+            children: [
+              _AudioSelector(),
+              SizedBox(
+                width: 10,
+              ),
+              _MeditationTime()
+            ],
           )
         ],
       ),
@@ -64,30 +70,84 @@ class __AudioSelectorState extends State<_AudioSelector> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Theme.of(context).colorScheme.surface),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: playAndPause,
-                  child: Icon(
-                    isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                    color: Theme.of(context).colorScheme.primary,
-                    size: 18,
+            child: SizedBox(
+              height: 35,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: playAndPause,
+                    child: Icon(
+                      isPlaying
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_rounded,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 24,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 7),
-                const Expanded(child: Text("teste")),
-                const SizedBox(width: 7),
-                const Icon(
-                  Icons.menu,
-                  size: 18,
-                  color: Colors.grey,
-                )
-              ],
+                  const SizedBox(width: 7),
+                  const Expanded(child: Text("teste")),
+                  const SizedBox(width: 7),
+                  const Icon(
+                    Icons.menu,
+                    size: 18,
+                    color: Colors.grey,
+                  )
+                ],
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _MeditationTime extends StatelessWidget {
+  const _MeditationTime({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Tempo",
+          style: Theme.of(context).textTheme.titleSmall,
+        ),
+        SizedBox(height: 5),
+        Container(
+          padding: const EdgeInsets.all(7),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).colorScheme.surface),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 35,
+                width: 35,
+                child: ListWheelScrollView.useDelegate(
+                  itemExtent: 18,
+                  physics: const FixedExtentScrollPhysics(),
+                  diameterRatio: 1.25,
+                  overAndUnderCenterOpacity: 0.25,
+                  childDelegate: ListWheelChildBuilderDelegate(
+                    childCount: 60,
+                    builder: (context, index) => Text(
+                      "${index + 1}",
+                    ),
+                  ),
+                ),
+              ),
+              Text(
+                "min",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
