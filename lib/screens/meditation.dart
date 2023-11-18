@@ -1,3 +1,5 @@
+import 'package:bora_caminhar/components/how_meditation_works.dart';
+import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:flutter/material.dart';
 
 class MeditationWidget extends StatelessWidget {
@@ -8,7 +10,7 @@ class MeditationWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Meditar",
@@ -26,6 +28,27 @@ class MeditationWidget extends StatelessWidget {
               ),
               _MeditationTime()
             ],
+          ),
+          TextButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return const HowMeditationWorksModal();
+                  },
+                );
+              },
+              child: Text("Como funciona?")),
+          PrimaryButton(
+            title: "Iniciar",
+            centralizeTitle: true,
+            textStyle: Theme.of(context)
+                .textTheme
+                .titleMedium!
+                .copyWith(color: Theme.of(context).colorScheme.background),
+            padding: const EdgeInsets.all(10),
+            onPressed: () {},
           )
         ],
       ),

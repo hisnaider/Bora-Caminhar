@@ -1,4 +1,4 @@
-import 'package:bora_caminhar/constant.dart';
+import 'package:bora_caminhar/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 /// This class create the arrow

@@ -1,4 +1,4 @@
-import 'package:bora_caminhar/constant.dart';
+import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/screens/achievement.dart';
 import 'package:bora_caminhar/screens/health.dart';
 import 'package:bora_caminhar/screens/history.dart';
@@ -19,7 +19,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
-          children: [Positioned(bottom: 0, right: 0, left: 0, child: _Tabs())]),
+        children: [
+          Positioned(
+            bottom: 0,
+            right: 0,
+            left: 0,
+            child: _Tabs(),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -66,6 +74,7 @@ class __TabsState extends State<_Tabs> {
         Visibility(
           visible: tabIndex != 2,
           child: Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

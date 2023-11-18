@@ -1,7 +1,7 @@
 import 'package:bora_caminhar/components/index_indicator.dart';
 import 'package:bora_caminhar/components/indicator_arrow.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
-import 'package:bora_caminhar/constant.dart';
+import 'package:bora_caminhar/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class PersonInfoModal extends StatelessWidget {

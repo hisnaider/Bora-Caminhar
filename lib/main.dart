@@ -1,4 +1,4 @@
-import 'package:bora_caminhar/constant.dart';
+import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +22,15 @@ class MainApp extends StatelessWidget {
           backgroundColor: Colors.transparent,
           modalElevation: 5,
         ),
+        textButtonTheme: TextButtonThemeData(
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all(EdgeInsets.all(0)))),
         textTheme: TextTheme(
           bodySmall: TextStyle(
             fontFamily: "Roboto",
-            fontSize: 12,
-            fontWeight: FontWeight.w400,
+            fontSize: 15,
+            height: 1.5,
+            fontWeight: FontWeight.w300,
             color: Colors.white.withOpacity(0.5),
           ),
           titleLarge: TextStyle(
@@ -47,6 +51,12 @@ class MainApp extends StatelessWidget {
           ),
           labelLarge: TextStyle(
             fontFamily: "Roboto",
+          ),
+          labelMedium: TextStyle(
+            fontFamily: "Roboto",
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+            color: Colors.white.withOpacity(0.5),
           ),
           labelSmall: TextStyle(
             fontFamily: "Roboto",

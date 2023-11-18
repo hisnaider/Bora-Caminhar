@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:bora_caminhar/components/person_info_modal.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/components/weight_modal.dart';
-import 'package:bora_caminhar/constant.dart';
+import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/util/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -134,11 +134,11 @@ class _HealthDetail extends StatelessWidget {
                 ),
                 Text(
                   "$total ${info["unit"]!}",
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
                 Text(
                   "$average ${info["unit"]!} (média)",
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ],
             ),
@@ -184,15 +184,15 @@ class _PersonInformation extends StatelessWidget {
           ),
           Text(
             gender,
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           Text(
             "$age Anos",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           Text(
             "$height metros",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           PrimaryButton(
             title: "Mudar info",
@@ -246,14 +246,14 @@ class _WeightInfo extends StatelessWidget {
           ),
           Text(
             "Anterior: $lastWeight",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 "Atual: ",
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               Text(
                 currentWeight.toString(),
@@ -334,7 +334,7 @@ class _BMI extends StatelessWidget {
                 bmiInfo["description"],
                 style: Theme.of(context)
                     .textTheme
-                    .bodySmall!
+                    .labelMedium!
                     .copyWith(color: bmiIndexColor[bmiInfo["index"]]),
               ),
             ],
