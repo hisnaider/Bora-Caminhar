@@ -1,5 +1,6 @@
 import 'package:bora_caminhar/components/how_meditation_works.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
+import 'package:bora_caminhar/constants/meditation_constants.dart';
 import 'package:flutter/material.dart';
 
 class MeditationWidget extends StatelessWidget {
@@ -13,7 +14,7 @@ class MeditationWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Meditar",
+            MeditationConstants.title["pt-br"]!,
             style: Theme.of(context).textTheme.titleLarge,
           ),
           const SizedBox(
@@ -39,7 +40,7 @@ class MeditationWidget extends StatelessWidget {
                   },
                 );
               },
-              child: Text("Como funciona?")),
+              child: Text(MeditationConstants.howItWorksTitle["pt-br"]!)),
           PrimaryButton(
             title: "Iniciar",
             centralizeTitle: true,
@@ -84,7 +85,7 @@ class __AudioSelectorState extends State<_AudioSelector> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Áudio para meditar",
+            MeditationConstants.selectAudio["pt-br"]!,
             style: Theme.of(context).textTheme.titleSmall,
           ),
           const SizedBox(height: 5),
@@ -135,7 +136,7 @@ class _MeditationTime extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Tempo",
+          MeditationConstants.time["pt-br"]!,
           style: Theme.of(context).textTheme.titleSmall,
         ),
         SizedBox(height: 5),

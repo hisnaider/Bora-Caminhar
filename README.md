@@ -39,7 +39,7 @@
     - [X] Change person's information modal
   - [ ] Meditation option
     - [ ] Meditation widget
-    - [ ] How meditation works modal
+    - [X] How meditation works modal
     - [ ] Select audio modal
     - [ ] Meditation screen
   - [ ] Achievement option

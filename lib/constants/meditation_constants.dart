@@ -38,7 +38,7 @@ class MeditationConstants {
       },
       {
         "title": "Dicas para uma Melhor Experiência:",
-        "texts": [
+        "textList": [
           "Respire profundamente e relaxe. Deixe as preocupações de lado e concentre-se no momento presente.",
           "Sinta a vibração do celular como um lembrete suave para focar na sua respiração.",
           "Aproveite o tempo para se reconectar consigo mesmo e encontrar a serenidade antes, durante ou após a sua caminhada."
@@ -48,7 +48,7 @@ class MeditationConstants {
     "en-us": [
       {
         "text":
-            "Meditating before walking can be a highly beneficial practice for the body and mind. Known as 'mindful walking,' it can bring mental clarity, focus, stress reduction, connection with nature, and improved concentration."
+            "Meditating before walking can be a highly beneficial practice for the body and mind. Known as 'mindful walking', it can bring mental clarity, focus, stress reduction, connection with nature, and improved concentration."
       },
       {
         "title": "Choose Your Audio:",
@@ -67,7 +67,7 @@ class MeditationConstants {
       },
       {
         "title": "Tips for a Better Experience:",
-        "texts": [
+        "textList": [
           "Take deep breaths and relax. Set aside worries and focus on the present moment.",
           "Feel the phone's vibration as a gentle reminder to focus on your breathing.",
           "Take the time to reconnect with yourself and find serenity before, during, or after your walk."

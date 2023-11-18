@@ -20,26 +20,29 @@ class ModalContainer extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            color: Theme.of(context).colorScheme.background,
-          ),
-          child: Column(
-            children: [
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-              Divider(
-                color: Colors.white.withOpacity(0.1),
-                height: 25,
-                thickness: 1,
-              ),
-              child,
-            ],
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
+              color: Theme.of(context).colorScheme.background,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleLarge,
+                  textAlign: TextAlign.center,
+                ),
+                Divider(
+                  color: Colors.white.withOpacity(0.1),
+                  height: 25,
+                  thickness: 1,
+                ),
+                child,
+              ],
+            ),
           ),
         )
       ],
