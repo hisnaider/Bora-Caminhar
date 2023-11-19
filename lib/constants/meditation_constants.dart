@@ -4,7 +4,7 @@ class MeditationConstants {
     "en-us": "Meditate",
   };
   static const selectAudio = {
-    "pt-br": "Selecionar audio",
+    "pt-br": "Selecionar áudio",
     "en-us": "Select audio",
   };
   static const time = {
@@ -74,5 +74,9 @@ class MeditationConstants {
         ]
       }
     ]
+  };
+  static const searchAudioOnDevice = {
+    "pt-br": "Procurar arquivo de áudio no seu dispositivo",
+    "en-us": "Search for audio file on your device",
   };
 }

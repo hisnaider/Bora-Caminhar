@@ -1,5 +1,6 @@
 import 'package:bora_caminhar/components/index_indicator.dart';
 import 'package:bora_caminhar/components/indicator_arrow.dart';
+import 'package:bora_caminhar/components/modal_container.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -9,74 +10,43 @@ class PersonInfoModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.end,
+    return ModalContainer(
+      title: "Mudar informações",
       children: [
-        Container(
-          width: 50,
-          height: 5,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(90),
-            color: Colors.grey,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            color: Theme.of(context).colorScheme.background,
-          ),
-          child: Column(
+        const SizedBox(
+          height: 200,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Mudar informações",
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-              Divider(
-                color: Colors.white.withOpacity(0.1),
-                height: 25,
-                thickness: 1,
-              ),
-              const SizedBox(
-                height: 200,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                child: Column(
                   children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          _GenderSelectWidget(),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          _BirthDateSelect()
-                        ],
-                      ),
+                    _GenderSelectWidget(),
+                    SizedBox(
+                      height: 10,
                     ),
-                    SizedBox(width: 24),
-                    _HeightSlider(
-                      height: 1.7,
-                    )
+                    _BirthDateSelect()
                   ],
                 ),
               ),
-              SizedBox(height: 24),
-              PrimaryButton(
-                title: "Confirmar mudanças",
-                centralizeTitle: true,
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Theme.of(context).colorScheme.background),
-                padding: const EdgeInsets.all(10),
-                onPressed: () {},
+              SizedBox(width: 24),
+              _HeightSlider(
+                height: 1.7,
               )
             ],
           ),
         ),
+        SizedBox(height: 24),
+        PrimaryButton(
+          title: "Confirmar mudanças",
+          centralizeTitle: true,
+          textStyle: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(color: Theme.of(context).colorScheme.background),
+          padding: const EdgeInsets.all(10),
+          onPressed: () {},
+        )
       ],
     );
   }

@@ -1,3 +1,4 @@
+import 'package:bora_caminhar/screens/modals/audio_selection_modal.dart';
 import 'package:bora_caminhar/screens/modals/how_meditation_works_modal.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constants/meditation_constants.dart';
@@ -112,10 +113,21 @@ class __AudioSelectorState extends State<_AudioSelector> {
                   const SizedBox(width: 7),
                   const Expanded(child: Text("teste")),
                   const SizedBox(width: 7),
-                  const Icon(
-                    Icons.menu,
-                    size: 18,
-                    color: Colors.grey,
+                  InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return const AudioSelectionModal();
+                        },
+                      );
+                    },
+                    child: const Icon(
+                      Icons.menu,
+                      size: 18,
+                      color: Colors.grey,
+                    ),
                   )
                 ],
               ),

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bora_caminhar/components/index_indicator.dart';
 import 'package:bora_caminhar/components/indicator_arrow.dart';
+import 'package:bora_caminhar/components/modal_container.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constants/constant.dart';
 import 'package:flutter/material.dart';
@@ -16,63 +17,31 @@ class WeightModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: 50,
-            height: 5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(90),
-              color: Colors.grey,
-            ),
+    return ModalContainer(
+      title: "Medir peso",
+      children: [
+        Opacity(
+          opacity: 0.5,
+          child: Text(
+            "Peso atual: 70.0 kg",
+            style: Theme.of(context).textTheme.titleSmall,
           ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(20)),
-              color: Theme.of(context).colorScheme.background,
-            ),
-            child: Column(
-              children: [
-                Text(
-                  "Medir peso",
-                  style: Theme.of(context).textTheme.titleLarge,
-                  textAlign: TextAlign.center,
-                ),
-                Divider(
-                  color: Colors.white.withOpacity(0.1),
-                  height: 25,
-                  thickness: 1,
-                ),
-                Opacity(
-                  opacity: 0.5,
-                  child: Text(
-                    "Peso atual: 70.0 kg",
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                ),
-                const _WeightSlider(max: 200, min: 0),
-                const SizedBox(
-                  height: 24,
-                ),
-                PrimaryButton(
-                  title: "Definir novo peso",
-                  centralizeTitle: true,
-                  textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.background),
-                  padding: const EdgeInsets.all(10),
-                  onPressed: () {},
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+        const _WeightSlider(max: 200, min: 0),
+        const SizedBox(
+          height: 24,
+        ),
+        PrimaryButton(
+          title: "Definir novo peso",
+          centralizeTitle: true,
+          textStyle: Theme.of(context)
+              .textTheme
+              .titleMedium!
+              .copyWith(color: Theme.of(context).colorScheme.background),
+          padding: const EdgeInsets.all(10),
+          onPressed: () {},
+        )
+      ],
     );
   }
 }
