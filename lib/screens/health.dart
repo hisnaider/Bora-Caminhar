@@ -1,8 +1,8 @@
 import 'dart:ffi';
 
-import 'package:bora_caminhar/components/person_info_modal.dart';
+import 'package:bora_caminhar/screens/modals/person_info_modal.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
-import 'package:bora_caminhar/components/weight_modal.dart';
+import 'package:bora_caminhar/screens/modals/weight_modal.dart';
 import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/util/util.dart';
 import 'package:flutter/material.dart';

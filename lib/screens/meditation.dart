@@ -1,4 +1,4 @@
-import 'package:bora_caminhar/components/how_meditation_works.dart';
+import 'package:bora_caminhar/screens/modals/how_meditation_works_modal.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
 import 'package:bora_caminhar/constants/meditation_constants.dart';
 import 'package:flutter/material.dart';

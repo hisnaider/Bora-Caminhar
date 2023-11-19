@@ -18,7 +18,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: Stack(
+      body: const Stack(
         children: [
           Positioned(
             bottom: 0,
@@ -51,15 +51,15 @@ class __TabsState extends State<_Tabs> {
   Widget tabOption() {
     switch (tabIndex) {
       case 0:
-        return HealthWidget();
+        return const HealthWidget();
       case 1:
-        return MeditationWidget();
+        return const MeditationWidget();
       case 3:
-        return AchievementWidget();
+        return const AchievementWidget();
       case 4:
-        return HistoryWidget();
+        return const HistoryWidget();
       default:
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
     }
   }
 
@@ -77,7 +77,8 @@ class __TabsState extends State<_Tabs> {
             width: double.infinity,
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(20)),
               color: Theme.of(context).colorScheme.background,
             ),
             child: tabOption(),

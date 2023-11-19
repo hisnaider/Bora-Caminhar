@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
 
 const List<Map<String, String>> tabOption = [
-  {"title": "Saúde", "svg": "svg/icons/health.svg"},
-  {"title": "Meditar", "svg": "svg/icons/meditation.svg"},
-  {"title": "Mapa", "svg": "svg/icons/world_map.svg"},
-  {"title": "Conquistas", "svg": "svg/icons/emblem.svg"},
-  {"title": "Histórico", "svg": "svg/icons/history.svg"},
+  {"title": "Saúde", "svg": "assets/svg/icons/health.svg"},
+  {"title": "Meditar", "svg": "assets/svg/icons/meditation.svg"},
+  {"title": "Mapa", "svg": "assets/svg/icons/world_map.svg"},
+  {"title": "Conquistas", "svg": "assets/svg/icons/emblem.svg"},
+  {"title": "Histórico", "svg": "assets/svg/icons/history.svg"},
 ];
 
 const Map<String, dynamic> healthDetail = {
   "calorie": {
     "title": "Calorias perdidas",
     "unit": "kcal",
-    "svg": "svg/icons/fire.svg",
+    "svg": "assets/svg/icons/fire.svg",
     "color": calorieColor,
   },
   "distance": {
     "title": "Distancia",
     "unit": "km",
-    "svg": "svg/icons/route.svg",
+    "svg": "assets/svg/icons/route.svg",
     "color": distanceColor,
   },
   "step": {
     "title": "Passos dados",
     "unit": "passos",
-    "svg": "svg/icons/steps.svg",
+    "svg": "assets/svg/icons/steps.svg",
     "color": stepColor,
   },
   "time": {
     "title": "Tempo",
     "unit": "minutos",
-    "svg": "svg/icons/time.svg",
+    "svg": "assets/svg/icons/time.svg",
     "color": timeColor,
   },
 };
@@ -49,6 +49,40 @@ const Map<int, dynamic> daysAndMonth = {
   11: {"name": "Novembro", "numberOfDays": 30},
   12: {"name": "Dezembro", "numberOfDays": 31},
 };
+
+const List<Map<String, String>> meditationAudioList = [
+  {
+    "name": "Angelical Pad",
+    "artist": "Lucadialessandro",
+    "fileName": "angelical-pad"
+  },
+  {
+    "name": "leap motiv",
+    "artist": "SamuelFrancisJohnson",
+    "fileName": "leap-motiv"
+  },
+  {
+    "name": "Uplifting Pad Texture",
+    "artist": "SamuelFrancisJohnson",
+    "fileName": "uplifting-pad-texture"
+  },
+  {
+    "name": "Light Rain Ambient",
+    "artist": "SoundsForYou",
+    "fileName": "light-rain-ambient"
+  },
+  {
+    "name": "Soft Rain Ambient",
+    "artist": "SoundsForYou",
+    "fileName": "soft-rain-ambient"
+  },
+  {
+    "name": "Evening birds singing in spring. Background sounds of nature",
+    "artist": "White_Records",
+    "fileName": "evening-birds-singing-in-spring-background-sounds-of-nature"
+  },
+  {"name": "Wandering", "artist": "Pixabay", "fileName": "wandering"},
+];
 
 const Color primaryColor = Color.fromRGBO(0, 255, 194, 1);
 
