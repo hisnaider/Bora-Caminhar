@@ -50,40 +50,6 @@ const Map<int, dynamic> daysAndMonth = {
   12: {"name": "Dezembro", "numberOfDays": 31},
 };
 
-const List<Map<String, String>> meditationAudioList = [
-  {
-    "name": "Angelical Pad",
-    "artist": "Lucadialessandro",
-    "fileName": "angelical-pad"
-  },
-  {
-    "name": "leap motiv",
-    "artist": "SamuelFrancisJohnson",
-    "fileName": "leap-motiv"
-  },
-  {
-    "name": "Uplifting Pad Texture",
-    "artist": "SamuelFrancisJohnson",
-    "fileName": "uplifting-pad-texture"
-  },
-  {
-    "name": "Light Rain Ambient",
-    "artist": "SoundsForYou",
-    "fileName": "light-rain-ambient"
-  },
-  {
-    "name": "Soft Rain Ambient",
-    "artist": "SoundsForYou",
-    "fileName": "soft-rain-ambient"
-  },
-  {
-    "name": "Evening birds singing in spring. Background sounds of nature",
-    "artist": "White_Records",
-    "fileName": "evening-birds-singing-in-spring-background-sounds-of-nature"
-  },
-  {"name": "Wandering", "artist": "Pixabay", "fileName": "wandering"},
-];
-
 const Color primaryColor = Color.fromRGBO(0, 255, 194, 1);
 
 const Color calorieColor = Color.fromRGBO(255, 122, 0, 1);
@@ -108,4 +74,23 @@ enum Gender {
 
   const Gender(this.label);
   final String label;
+}
+
+enum MeditationAudioList {
+  angelicalPad("Angelical Pad", "Lucadialessandro", "angelical-pad"),
+  leapMotiv("Leap Motiv", "SamuelFrancisJohnson", "leap-motiv"),
+  uplifting(
+      "Uplifting Pad Texture", "SamuelFrancisJohnson", "uplifting-pad-texture"),
+  lightRain("Light Rain Ambient", "SoundsForYou", "light-rain-ambient"),
+  softRain("Soft Rain Ambient", "SoundsForYou", "soft-rain-ambient"),
+  eveningBirds(
+      "Evening birds singing in spring. Background sounds of nature",
+      "White_Records",
+      "evening-birds-singing-in-spring-background-sounds-of-nature"),
+  wandering("Wandering", "Pixabay", "wandering");
+
+  const MeditationAudioList(this.name, this.artist, this.fileName);
+  final String name;
+  final String artist;
+  final String fileName;
 }

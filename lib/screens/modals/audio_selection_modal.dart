@@ -11,22 +11,46 @@ class AudioSelectionModal extends StatefulWidget {
 }
 
 class _AudioSelectionModalState extends State<AudioSelectionModal> {
+  MeditationAudioList? currentSelectedAudio;
+
+  String? currentPlayingAudio;
+
+  void changeSelectedAudio(MeditationAudioList? value) {
+    setState(() {
+      currentSelectedAudio = value;
+    });
+  }
+
+  void playAudio(String? index) {
+    String? playingAudio = currentPlayingAudio;
+    if (index == currentPlayingAudio) {
+      playingAudio = null;
+    } else {
+      playingAudio = index;
+    }
+    setState(() {
+      currentPlayingAudio = playingAudio;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     String language = "pt-br";
-    String audio = "value";
     return ModalContainer(
       title: MeditationConstants.selectAudio[language]!,
       children: [
         Expanded(
           child: ListView.builder(
-              itemCount: meditationAudioList.length,
-              itemBuilder: (context, index) {
-                return _AudioContainer(
-                  name: meditationAudioList[index]["name"]!,
-                  artist: meditationAudioList[index]["artist"]!,
-                );
-              }),
+            itemCount: MeditationAudioList.values.length,
+            itemBuilder: (context, index) {
+              return _AudioContainer(
+                  meditationAudio: MeditationAudioList.values[index],
+                  currentPlayingAudio: currentPlayingAudio,
+                  changeSelectedAudio: changeSelectedAudio,
+                  currentSelectedAudio: currentSelectedAudio,
+                  playAudio: playAudio);
+            },
+          ),
         ),
       ],
     );
@@ -34,15 +58,28 @@ class _AudioSelectionModalState extends State<AudioSelectionModal> {
 }
 
 class _AudioContainer extends StatelessWidget {
-  const _AudioContainer({super.key, required this.name, required this.artist});
-  final String name;
-  final String artist;
+  const _AudioContainer(
+      {super.key,
+      required this.meditationAudio,
+      required this.currentPlayingAudio,
+      required this.changeSelectedAudio,
+      required this.currentSelectedAudio,
+      required this.playAudio});
+  final MeditationAudioList meditationAudio;
+  final MeditationAudioList? currentSelectedAudio;
+  final String? currentPlayingAudio;
+  final Function(MeditationAudioList?) changeSelectedAudio;
+  final Function(String?) playAudio;
 
   @override
   Widget build(BuildContext context) {
+    bool isPlaying() {
+      return currentPlayingAudio == meditationAudio.fileName;
+    }
+
     return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(vertical: 6),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).colorScheme.surface,
@@ -50,34 +87,34 @@ class _AudioContainer extends StatelessWidget {
       child: Row(
         children: [
           IconButton.filled(
-            onPressed: () {},
+            onPressed: () => playAudio(meditationAudio.fileName),
             icon: Icon(
-              Icons.play_arrow_rounded,
+              isPlaying() ? Icons.pause_rounded : Icons.play_arrow_rounded,
               size: 24,
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name,
+                  meditationAudio.name,
                   style: Theme.of(context).textTheme.titleSmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Text(
-                  artist.toUpperCase(),
+                  meditationAudio.artist.toUpperCase(),
                   style: Theme.of(context).textTheme.labelMedium,
                 )
               ],
             ),
           ),
-          Radio(
-            value: "value",
-            groupValue: "audio",
-            onChanged: (value) {},
+          Radio<MeditationAudioList>(
+            value: meditationAudio,
+            groupValue: currentSelectedAudio,
+            onChanged: changeSelectedAudio,
           )
         ],
       ),
