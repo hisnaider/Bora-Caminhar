@@ -1,7 +1,9 @@
 import 'package:bora_caminhar/components/modal_container.dart';
 import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/constants/meditation_constants.dart';
+import 'package:bora_caminhar/services/just_audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class AudioSelectionModal extends StatefulWidget {
   const AudioSelectionModal({super.key});
@@ -11,9 +13,8 @@ class AudioSelectionModal extends StatefulWidget {
 }
 
 class _AudioSelectionModalState extends State<AudioSelectionModal> {
+  JustAudioService _justAudioService = JustAudioService();
   MeditationAudioList? currentSelectedAudio;
-
-  String? currentPlayingAudio;
 
   void changeSelectedAudio(MeditationAudioList? value) {
     setState(() {
@@ -21,16 +22,34 @@ class _AudioSelectionModalState extends State<AudioSelectionModal> {
     });
   }
 
-  void playAudio(String? index) {
-    String? playingAudio = currentPlayingAudio;
-    if (index == currentPlayingAudio) {
-      playingAudio = null;
-    } else {
-      playingAudio = index;
-    }
+  void playAudio(String? filename) {
     setState(() {
-      currentPlayingAudio = playingAudio;
+      if (_justAudioService.currentPlayingAudio == filename) {
+        _justAudioService.stop();
+      } else {
+        _justAudioService.playAssetsFile(filename!);
+      }
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _justAudioService.audioPlayer.playerStateStream.listen((event) {
+      setState(() {
+        if (event.processingState == ProcessingState.completed) {
+          _justAudioService.stop();
+        }
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _justAudioService.dispose();
+    super.dispose();
   }
 
   @override
@@ -45,10 +64,10 @@ class _AudioSelectionModalState extends State<AudioSelectionModal> {
             itemBuilder: (context, index) {
               return _AudioContainer(
                   meditationAudio: MeditationAudioList.values[index],
-                  currentPlayingAudio: currentPlayingAudio,
                   changeSelectedAudio: changeSelectedAudio,
                   currentSelectedAudio: currentSelectedAudio,
-                  playAudio: playAudio);
+                  playAudio: playAudio,
+                  currentPlayingAudio: _justAudioService.currentPlayingAudio);
             },
           ),
         ),
@@ -61,15 +80,15 @@ class _AudioContainer extends StatelessWidget {
   const _AudioContainer(
       {super.key,
       required this.meditationAudio,
-      required this.currentPlayingAudio,
       required this.changeSelectedAudio,
       required this.currentSelectedAudio,
-      required this.playAudio});
+      required this.playAudio,
+      this.currentPlayingAudio});
   final MeditationAudioList meditationAudio;
   final MeditationAudioList? currentSelectedAudio;
-  final String? currentPlayingAudio;
   final Function(MeditationAudioList?) changeSelectedAudio;
   final Function(String?) playAudio;
+  final String? currentPlayingAudio;
 
   @override
   Widget build(BuildContext context) {
