@@ -1,8 +1,8 @@
 import 'package:bora_caminhar/constants/constant.dart';
-import 'package:bora_caminhar/screens/achievement.dart';
-import 'package:bora_caminhar/screens/health.dart';
-import 'package:bora_caminhar/screens/history.dart';
-import 'package:bora_caminhar/screens/meditation.dart';
+import 'package:bora_caminhar/screens/achievement/page.dart';
+import 'package:bora_caminhar/screens/health/page.dart';
+import 'package:bora_caminhar/screens/meditation/page.dart';
+import 'package:bora_caminhar/screens/walkHistory/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -51,13 +51,13 @@ class __TabsState extends State<_Tabs> {
   Widget tabOption() {
     switch (tabIndex) {
       case 0:
-        return const HealthWidget();
+        return const HealthPage();
       case 1:
-        return const MeditationWidget();
+        return const MeditationPage();
       case 3:
-        return const AchievementWidget();
+        return const AchievementPage();
       case 4:
-        return const HistoryWidget();
+        return const WalkHistoryPage();
       default:
         return const SizedBox.shrink();
     }

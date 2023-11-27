@@ -79,4 +79,19 @@ class MeditationConstants {
     "pt-br": "Procurar arquivo de áudio no seu dispositivo",
     "en-us": "Search for audio file on your device",
   };
+  static const selectNoAudio = {
+    "pt-br": "Selecionar nenhum",
+    "en-us": "Select none",
+  };
+}
+
+enum AudioOptions {
+  angelicalPad,
+  leapMotiv,
+  uplifting,
+  lightRain,
+  softRain,
+  eveningBirds,
+  wandering,
+  noAssetAudio
 }

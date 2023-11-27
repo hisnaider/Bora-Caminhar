@@ -1,9 +1,13 @@
+import 'package:bora_caminhar/class/global_state_manager.dart';
 import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/screens/homepage_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => GlobalStateManager(currentAudioOptions: null),
+      child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {

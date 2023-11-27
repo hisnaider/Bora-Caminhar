@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AchievementWidget extends StatelessWidget {
-  const AchievementWidget({super.key});
+class AchievementBody extends StatelessWidget {
+  const AchievementBody({super.key});
 
   @override
   Widget build(BuildContext context) {

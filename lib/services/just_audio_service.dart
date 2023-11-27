@@ -16,10 +16,9 @@ class JustAudioService {
     return _audioPlayer;
   }
 
-  void playAssetsFile(String filename) async {
+  void playAssetsFile(String location) async {
     try {
-      _currentPlayingAudio = filename;
-      await _audioPlayer.setAsset("assets/audios/$filename.mp3");
+      await _audioPlayer.setAsset(location);
       await _audioPlayer.play();
     } catch (e) {}
   }

@@ -40,10 +40,6 @@ class PersonInfoModal extends StatelessWidget {
         PrimaryButton(
           title: "Confirmar mudanças",
           centralizeTitle: true,
-          textStyle: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(color: Theme.of(context).colorScheme.background),
           padding: const EdgeInsets.all(10),
           onPressed: () {},
         )

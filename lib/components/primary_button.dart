@@ -50,10 +50,10 @@ class PrimaryButton extends StatelessWidget {
           Text(
             title,
             style: textStyle ??
-                TextStyle(
-                    fontFamily: "Roboto",
-                    color: Theme.of(context).colorScheme.background,
-                    fontWeight: FontWeight.w600),
+                Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Theme.of(context).colorScheme.background),
           ),
         ],
       ),

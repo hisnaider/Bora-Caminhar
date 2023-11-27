@@ -1,6 +1,6 @@
 import 'package:bora_caminhar/components/modal_container.dart';
 import 'package:bora_caminhar/components/primary_button.dart';
-import 'package:bora_caminhar/constants/meditation_constants.dart';
+import 'package:bora_caminhar/screens/meditation/contants.dart';
 import 'package:flutter/material.dart';
 
 class HowMeditationWorksModal extends StatelessWidget {

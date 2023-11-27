@@ -76,21 +76,12 @@ enum Gender {
   final String label;
 }
 
-enum MeditationAudioList {
-  angelicalPad("Angelical Pad", "Lucadialessandro", "angelical-pad"),
-  leapMotiv("Leap Motiv", "SamuelFrancisJohnson", "leap-motiv"),
-  uplifting(
-      "Uplifting Pad Texture", "SamuelFrancisJohnson", "uplifting-pad-texture"),
-  lightRain("Light Rain Ambient", "SoundsForYou", "light-rain-ambient"),
-  softRain("Soft Rain Ambient", "SoundsForYou", "soft-rain-ambient"),
-  eveningBirds(
-      "Evening birds singing in spring. Background sounds of nature",
-      "White_Records",
-      "evening-birds-singing-in-spring-background-sounds-of-nature"),
-  wandering("Wandering", "Pixabay", "wandering");
+const selectText = {
+  "pt-br": "Concluir",
+  "en-us": "Done",
+};
 
-  const MeditationAudioList(this.name, this.artist, this.fileName);
-  final String name;
-  final String artist;
-  final String fileName;
-}
+const backText = {
+  "pt-br": "Voltar",
+  "en-us": "Back",
+};
