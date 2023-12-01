@@ -1,5 +1,8 @@
+import 'package:bora_caminhar/screens/meditation/bloc/meditation_bloc.dart';
+import 'package:bora_caminhar/screens/meditation/bloc/meditation_event.dart';
 import 'package:bora_caminhar/screens/meditation/contants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TimeSelector extends StatelessWidget {
   const TimeSelector({super.key});
@@ -13,7 +16,7 @@ class TimeSelector extends StatelessWidget {
           MeditationConstants.time["pt-br"]!,
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
           padding: const EdgeInsets.all(7),
           decoration: BoxDecoration(
@@ -30,6 +33,10 @@ class TimeSelector extends StatelessWidget {
                   physics: const FixedExtentScrollPhysics(),
                   diameterRatio: 1.25,
                   overAndUnderCenterOpacity: 0.25,
+                  onSelectedItemChanged: (value) {
+                    BlocProvider.of<MeditationBloc>(context)
+                        .add(SelectTime(minute: value + 1));
+                  },
                   childDelegate: ListWheelChildBuilderDelegate(
                     childCount: 60,
                     builder: (context, index) => Text(
@@ -38,7 +45,7 @@ class TimeSelector extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
+              const Text(
                 "min",
                 style: TextStyle(color: Colors.grey),
               ),

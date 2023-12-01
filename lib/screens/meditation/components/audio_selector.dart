@@ -4,7 +4,8 @@ import 'package:bora_caminhar/screens/meditation/views/audio_selection_modal.dar
 import 'package:flutter/material.dart';
 
 class AudioSelector extends StatelessWidget {
-  const AudioSelector({super.key, required this.onTap});
+  const AudioSelector({super.key, required this.onTap, required this.name});
+  final String? name;
   final VoidCallback onTap;
 
   @override
@@ -37,7 +38,16 @@ class AudioSelector extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 7),
-                  const Expanded(child: Text("teste")),
+                  Expanded(
+                    child: Opacity(
+                      opacity: name != null ? 1 : 0.25,
+                      child: Text(
+                        name ?? "Nenhum audio selecionado",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

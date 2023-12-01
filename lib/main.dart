@@ -1,7 +1,9 @@
 import 'package:bora_caminhar/class/global_state_manager.dart';
 import 'package:bora_caminhar/constants/constant.dart';
 import 'package:bora_caminhar/screens/homepage_screen.dart';
+import 'package:bora_caminhar/screens/meditation_start/meditation_start_page.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,7 +17,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router,
       theme: ThemeData(
         colorScheme: ColorScheme.dark(
             primary: primaryColor,
@@ -69,7 +72,25 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(body: HomePageScreen()),
     );
   }
 }
+
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const HomePageScreen();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'meditation_start',
+          builder: (BuildContext context, GoRouterState state) {
+            return const MeditationStartPage();
+          },
+        ),
+      ],
+    ),
+  ],
+);

@@ -1,34 +1,37 @@
 import 'dart:async';
 
+import 'package:bloc/bloc.dart';
 import 'package:bora_caminhar/models/audio_model.dart';
 import 'package:bora_caminhar/screens/meditation/bloc/meditation_State.dart';
 import 'package:bora_caminhar/screens/meditation/bloc/meditation_event.dart';
 import 'package:bora_caminhar/screens/meditation/functions/audio_functions.dart';
 
-class MeditationBloc {
-  final StreamController<MeditationEvent> _inputController =
-      StreamController<MeditationEvent>();
-  final StreamController<MeditationState> _outputController =
-      StreamController<MeditationState>();
+class MeditationBloc extends Bloc<MeditationEvent, MeditationState> {
+  int? selectedIndex;
+  int? playingIndex;
+  int time = 1;
+  List<AudioModel> audioModelsList = [];
 
-  Sink<MeditationEvent> get inputController => _inputController.sink;
-  Stream<MeditationState> get outputController => _outputController.stream;
-
-  MeditationBloc() {
-    _inputController.stream.listen(_mapEventToState);
+  MeditationBloc() : super(InitialState()) {
+    on(_mapEventToState);
   }
 
-  void _mapEventToState(MeditationEvent event) async {
-    _outputController.add(LoadingState());
-    if (event is Initial) {
-      List<AudioModel> audioModelsList = getAudiofiles();
-      _outputController.add(InitialState(audioModels: audioModelsList));
+  void _mapEventToState(MeditationEvent event, Emitter emit) async {
+    if (event is GetAudios) {
+      audioModelsList = event.audioModels;
     } else if (event is SelectAudio) {
-      int? selectedAudio = selectAudioFunction(event.audioIndex);
-      _outputController.add(AudioSelectedState(audioSelected: selectedAudio));
+      selectedIndex = event.index;
     } else if (event is PlayAudio) {
-      int? playingAudio = playAudioFunction(event.audioIndex);
-      _outputController.add(AudioPlayingState(audioPlaying: playingAudio));
+      playingIndex = event.index;
+    } else if (event is SelectTime) {
+      time = event.minute;
     }
+    emit(
+      ChangedState(
+          audioModels: audioModelsList,
+          audioSelected: selectedIndex,
+          audioPlaying: playingIndex,
+          time: time),
+    );
   }
 }

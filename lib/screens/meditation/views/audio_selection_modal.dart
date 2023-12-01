@@ -10,58 +10,69 @@ import 'package:bora_caminhar/screens/meditation/components/asset_audio_widget.d
 import 'package:bora_caminhar/screens/meditation/components/audio_container.dart';
 import 'package:bora_caminhar/screens/meditation/components/no_audio_widget.dart';
 import 'package:bora_caminhar/screens/meditation/contants.dart';
+import 'package:bora_caminhar/screens/meditation/functions/audio_functions.dart';
 import 'package:bora_caminhar/services/just_audio_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
-
-final JustAudioService _justAudioService = JustAudioService();
 
 class AudioSelectionModal extends StatefulWidget {
   const AudioSelectionModal({super.key, required this.bloc});
   final MeditationBloc bloc;
-
   @override
   State<AudioSelectionModal> createState() => _AudioSelectionModalState();
 }
 
 class _AudioSelectionModalState extends State<AudioSelectionModal> {
+  final JustAudioService _justAudioService = JustAudioService();
   AudioOptions? currentSelectedAudio;
 
   String language = "pt-br";
 
   @override
   void initState() {
-    // TODO: implement initState
     _justAudioService.audioPlayer.playerStateStream.listen((event) {
-      setState(() {
-        if (event.processingState == ProcessingState.completed) {
-          _justAudioService.stop();
-        }
-      });
+      if (event.processingState == ProcessingState.completed) {
+        _justAudioService.stop();
+        widget.bloc.add(PlayAudio(index: null));
+      }
     });
+    print(widget.bloc.audioModelsList);
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    widget.bloc.add(PlayAudio(index: null));
     _justAudioService.dispose();
     super.dispose();
   }
 
+  void play(int? index, String location) {
+    if (index == widget.bloc.playingIndex) {
+      _justAudioService.stop();
+      index = null;
+    } else {
+      _justAudioService.playAssetsFile(location);
+    }
+    widget.bloc.add(PlayAudio(index: index));
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.bloc.audioModelsList);
     String language = "pt-br";
-    return StreamBuilder<MeditationState>(
-        stream: widget.bloc.outputController,
+
+    return BlocBuilder<MeditationBloc, MeditationState>(
+        bloc: widget.bloc,
         builder: (context, state) {
-          if (state is LoadingState) {
+          if (state is InitialState) {
             return const CircularProgressIndicator();
           }
-          final audios = state.data?.audioModels ?? [];
-          final audioSelected = state.data?.audioSelected;
-          final audioPlaying = state.data?.audioPlaying;
+          final audios = state.audioModels;
+          final audioSelected = state.audioSelected;
+          final audioPlaying = state.audioPlaying;
           return ModalContainer(
             title: MeditationConstants.selectAudio[language]!,
             children: [
@@ -74,19 +85,18 @@ class _AudioSelectionModalState extends State<AudioSelectionModal> {
                         AssetAudioWidget(
                           index: i,
                           audioModel: audios[i],
-                          currentSelectedAudioIndex: audioSelected,
+                          currentSelectedAudio: audioSelected,
                           currentPlayingAudio: audioPlaying,
                           onChanged: (index) {
-                            widget.bloc.inputController
-                                .add(SelectAudio(audioIndex: index));
+                            widget.bloc.add(SelectAudio(index: index));
                           },
+                          play: play,
                         )
                       ],
                       NoAudioWidget(
                         currentSelectedAudio: audioSelected,
                         onChanged: (index) {
-                          widget.bloc.inputController
-                              .add(SelectAudio(audioIndex: index));
+                          widget.bloc.add(SelectAudio(index: index));
                         },
                       ),
                     ],

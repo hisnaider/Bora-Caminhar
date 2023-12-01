@@ -6,17 +6,22 @@ class Initial extends MeditationEvent {
   Initial();
 }
 
+class GetAudios extends MeditationEvent {
+  final List<AudioModel> audioModels;
+  GetAudios({required this.audioModels});
+}
+
 class SelectAudio extends MeditationEvent {
-  final int? audioIndex;
-  SelectAudio({required this.audioIndex});
+  final int? index;
+  SelectAudio({required this.index});
 }
 
 class PlayAudio extends MeditationEvent {
-  final int? audioIndex;
-  PlayAudio({required this.audioIndex});
+  final int? index;
+  PlayAudio({required this.index});
 }
 
-class RepeatAudio extends MeditationEvent {
-  final bool repeat;
-  RepeatAudio({required this.repeat});
+class SelectTime extends MeditationEvent {
+  final int minute;
+  SelectTime({required this.minute});
 }
